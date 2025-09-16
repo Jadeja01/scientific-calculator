@@ -43,23 +43,29 @@ class ScientificCalculator:
             ["7", "8", "9", "/", "C"],
             ["4", "5", "6", "*", "("],
             ["1", "2", "3", "-", ")"],
-            ["0", ".", "=", "+", "√"],
-            ["sin", "cos", "tan", "log", "^"],
-            ["π", "e", "exp", "!", "DEL"]
+            ["0", ".", "+", "√", "^"],
+            ["sin", "cos", "tan", "log", "e"],
+            ["exp", "=", "DEL"]
         ]
 
         for i, row in enumerate(buttons):
             for j, button in enumerate(row):
-                self.create_button(btns_frame, button, i, j)
+                if button == "=":
+                    self.create_button(btns_frame, button, i, j, colspan=2, width=15)
+                elif button == "DEL":
+                    self.create_button(btns_frame, button, i, j+1, colspan=2, width=15)
+                    break
+                else:
+                    self.create_button(btns_frame, button, i, j)
 
     # -------------------------------
     # Button Creation
     # -------------------------------
-    def create_button(self, frame, text, row, col):
+    def create_button(self, frame, text, row, col, colspan=1, width=6):
         btn = tk.Button(
             frame,
             text=text,
-            width=6,
+            width=width,
             height=2,
             bg="#2b2b3c",
             fg="white",
@@ -70,7 +76,7 @@ class ScientificCalculator:
             bd=3,
             command=lambda: self.on_button_click(text)
         )
-        btn.grid(row=row, column=col, padx=5, pady=5)
+        btn.grid(row=row, column=col, columnspan=colspan, padx=5, pady=5, sticky="nsew")
 
     # -------------------------------
     # Button Logic
