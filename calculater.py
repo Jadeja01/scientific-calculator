@@ -3,9 +3,6 @@ from tkinter import messagebox
 import math
 import os
 
-# -------------------------------
-# Main Calculator Class
-# -------------------------------
 class ScientificCalculator:
     def __init__(self, root):
         self.root = root
@@ -17,11 +14,10 @@ class ScientificCalculator:
         self.expression = ""
         self.input_text = tk.StringVar()
 
-        # ✅ Fixed Path for history file
         self.history_file = r"c:/Users/shravan singh/OneDrive/Desktop/python/projects/history.txt"
-        self.history_win = None  # store history window instance
+        self.history_win = None  
 
-        # Entry field
+        # Entry_field
         input_frame = tk.Frame(self.root, bd=2, relief=tk.RAISED, bg="#1e1e2f")
         input_frame.pack(side=tk.TOP, pady=15)
 
@@ -39,11 +35,11 @@ class ScientificCalculator:
         input_field.grid(row=0, column=0)
         input_field.pack(ipady=10)
 
-        # Buttons frame
+        # Buttons_frame
         btns_frame = tk.Frame(self.root, bg="#1e1e2f")
         btns_frame.pack()
 
-        # Button layout
+        # Button_layout
         buttons = [
             ["7", "8", "9", "/", "C"],
             ["4", "5", "6", "*", "("],
@@ -51,7 +47,7 @@ class ScientificCalculator:
             ["0", ".", "+", "√", "^"],
             ["sin", "cos", "tan", "log", "e"],
             ["exp", "=", "DEL"],
-            ["History"]  # History button
+            ["History"]
         ]
 
         for i, row in enumerate(buttons):
@@ -66,9 +62,9 @@ class ScientificCalculator:
                 else:
                     self.create_button(btns_frame, button, i, j)
 
-    # -------------------------------
-    # Button Creation
-    # -------------------------------
+
+    # Lopping over buttons to disp[lay on user's ui side
+
     def create_button(self, frame, text, row, col, colspan=1, width=6):
         btn = tk.Button(
             frame,
@@ -86,9 +82,8 @@ class ScientificCalculator:
         )
         btn.grid(row=row, column=col, columnspan=colspan, padx=5, pady=5, sticky="nsew")
 
-    # -------------------------------
-    # Button Logic
-    # -------------------------------
+    # Button_Logic
+
     def on_button_click(self, button_text):
         if button_text == "C":
             self.expression = ""
@@ -158,20 +153,18 @@ class ScientificCalculator:
             self.expression += str(button_text)
             self.input_text.set(self.expression)
 
-    # -------------------------------
+
     # Save history to file
-    # -------------------------------
+
     def save_history(self, record):
         with open(self.history_file, "a") as f:
             f.write(record + "\n")
 
-    # -------------------------------
-    # Show history window (from file)
-    # -------------------------------
+
+    # Show history (from file)
+    
     def show_history(self):
-        # agar window already open hai to dobara open na ho
         if self.history_win is not None and tk.Toplevel.winfo_exists(self.history_win):
-            # Refresh data in same window
             self.refresh_history()
             return
 
@@ -210,9 +203,9 @@ class ScientificCalculator:
             self.text_area.config(state=tk.DISABLED)
 
 
-# -------------------------------
-# Run Calculator
-# -------------------------------
+
+# Run Calculator (Main code)
+
 if __name__ == "__main__":
     root = tk.Tk()
     calc = ScientificCalculator(root)
